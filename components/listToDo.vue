@@ -1,12 +1,16 @@
 <script>
+import { ref } from 'vue';
 
-let id = 0
+
+let id = 0;
+let nowaNazwa = "";
 export default {
   data() {
     return {
-      lista: [],
-      nowyElement: '',
-      schowajUkonczone: false
+      lista: ref([]),
+      nowyElement: ref(''),
+      edycja: ref(false),
+      schowajUkonczone: ref(false)
     }
   },
 
@@ -23,6 +27,7 @@ export default {
       text = text.toUpperCase();
       this.lista.push({id: id++, task: text, done: false, edit: false, update: true});
       this.nowyElement = ''
+      console.log(this.lista);
     },
     usunElement(todo) {
       this.lista = this.lista.filter((t) => t !== todo)
@@ -30,13 +35,20 @@ export default {
     wlaczEdycjeElementu(element) {
       element.edit = true;
       element.update = false;
+      this.edycja = true;
+      this.value = element.task;
     },
     edytujElement(element,text){
-      element.edit = false;
+      
       text = text.toUpperCase();
       element.task = text;
+      element.edit = false;
       element.update = true;
+      this.edycja = false;
       this.update = "";
+    },
+    odznaczElement(element) {
+      element.done = !element.done;
     },
     sortujElementy(){
       let array = this.lista;
@@ -53,6 +65,11 @@ export default {
 }
 </script>
 
+<script setup>
+    import TodoItem from "./singleTask.vue"
+</script>
+
+
 <template>
   <main>
     <h1> LISTA TODO:</h1>
@@ -60,24 +77,29 @@ export default {
 
     <input type="text" v-model="nowyElement">
       <button @click="dodajElement()">Dodaj</button>
-      <button @click="sortujElementy">Sortuj</button><br>
-      <span>Taski do zrobienia:{{ this.lista.filter(element => element.done === false).length }}</span>
-
+      <button @click="sortujElementy()">Sortuj</button><br>
+      
+      
+      <div v-if="edycja">
+        <input v-model="nowaNazwa" type="text">
+      </div>      
+      
       <ul>
         <li v-for = "element in pokazNieUkonczone" :key = "element.id">
-        
-        <input type="checkbox" v-model="element.done">
-        <span :class="{ done: element.done }" v-show="element.update">{{ element.task }}</span>
-        
-        <input v-show="element.edit" type ="text" v-model="update"> 
+          <TodoItem
+            :id = "element.id"
+            :task = "element.task"
+            :done = "element.done"
+            :edit= "element.edit"
+            @usunTaska ="usunElement(element)"
+            @wlaczEdycjeTaska ="wlaczEdycjeElementu(element)"
+            @edytujTaska ="edytujElement(element,nowaNazwa)"
+            @odznaczTaska="odznaczElement(element)"
+          ></TodoItem>
 
-        <button v-show="element.update" @click="$event => wlaczEdycjeElementu(element)">Edytuj</button>
-        <button v-show="element.edit" @click="$event => edytujElement(element,update)">OK</button>
-        <button @click="$event => usunElement(element)">X</button>
-        
         </li>
       </ul>
-
+      <span>Taski do zrobienia:{{ this.lista.filter(element => element.done === false).length }}</span><br>
       <button @click="schowajUkonczone = !schowajUkonczone">
         {{ schowajUkonczone ? 'Pokaz wszystko' : 'Schowaj ukonczone' }}
       </button>
