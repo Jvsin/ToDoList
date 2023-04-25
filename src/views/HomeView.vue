@@ -10,11 +10,21 @@ export default {
   },
   methods: {
     dodajElement() {
-      this.lista.push({id: id++, task: this.nowyElement, done: false});
+      this.lista.push({id: id++, task: this.nowyElement, done: false, edit: false, update: true});
       this.nowyElement = '';
     },
     usunElement(todo) {
       this.lista = this.lista.filter((t) => t !== todo)
+    },
+    wlaczEdycjeElementu(element) {
+      element.edit = true;
+      element.update = false;
+    },
+    edytujElement(element,text){
+      element.edit = false;
+      element.task = text;
+      element.update = true;
+      this.update = "";
     }
   }
 }
@@ -31,8 +41,11 @@ export default {
         <li v-for = "element in lista" :key = "element.id">
         
         <input type="checkbox" v-model="element.done">
-        <span :class="{ done: element.done }">{{ element.task }}</span>
-      
+        <span :class="{ done: element.done }" v-show="element.update">{{ element.task }}</span>
+        
+        <input v-show="element.edit" type ="text" v-model="update"> 
+        <button v-show="element.update" @click="$event => wlaczEdycjeElementu(element)">Edit</button>
+        <button v-show="element.edit" @click="$event => edytujElement(element,update)">OK</button>
         <button @click="$event => usunElement(element)">X</button>
         </li>
       </ul>
