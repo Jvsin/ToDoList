@@ -25,6 +25,17 @@ export default {
       element.task = text;
       element.update = true;
       this.update = "";
+    },
+    sortujElementy(){
+      let array = this.lista;
+      array = array.sort((a,b) =>  { 
+        if (a.task < b.task)
+          return -1;
+        if (a.task > b.task)
+          return 1;
+        return 0;
+      })
+      return array;
     }
   }
 }
@@ -37,6 +48,8 @@ export default {
 
     <input type="text" v-model="nowyElement">
       <button @click="dodajElement">Dodaj</button>
+      <button @click="sortujElementy">Sortuj</button>
+
       <ul>
         <li v-for = "element in lista" :key = "element.id">
         
@@ -44,9 +57,11 @@ export default {
         <span :class="{ done: element.done }" v-show="element.update">{{ element.task }}</span>
         
         <input v-show="element.edit" type ="text" v-model="update"> 
-        <button v-show="element.update" @click="$event => wlaczEdycjeElementu(element)">Edit</button>
+
+        <button v-show="element.update" @click="$event => wlaczEdycjeElementu(element)">Edytuj</button>
         <button v-show="element.edit" @click="$event => edytujElement(element,update)">OK</button>
         <button @click="$event => usunElement(element)">X</button>
+        
         </li>
       </ul>
   </main>
