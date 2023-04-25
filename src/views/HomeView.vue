@@ -5,9 +5,18 @@ export default {
   data() {
     return {
       lista: [],
-      nowyElement: ''
+      nowyElement: '',
+      schowajUkonczone: false
     }
   },
+
+  computed: {
+    pokazNieUkonczone() {
+      return this.schowajUkonczone
+        ? this.lista.filter((element)=> !element.done) : this.lista
+    }
+  },
+
   methods: {
     dodajElement() {
       var text = this.nowyElement;
@@ -24,6 +33,7 @@ export default {
     },
     edytujElement(element,text){
       element.edit = false;
+      text = text.toUpperCase();
       element.task = text;
       element.update = true;
       this.update = "";
@@ -54,7 +64,7 @@ export default {
       <span>Taski do zrobienia:{{ this.lista.filter(element => element.done === false).length }}</span>
 
       <ul>
-        <li v-for = "element in lista" :key = "element.id">
+        <li v-for = "element in pokazNieUkonczone" :key = "element.id">
         
         <input type="checkbox" v-model="element.done">
         <span :class="{ done: element.done }" v-show="element.update">{{ element.task }}</span>
@@ -67,6 +77,10 @@ export default {
         
         </li>
       </ul>
+
+      <button @click="schowajUkonczone = !schowajUkonczone">
+        {{ schowajUkonczone ? 'Pokaz wszystko' : 'Schowaj ukonczone' }}
+      </button>
       
   </main>
 </template>
