@@ -10,7 +10,9 @@ export default {
   },
   methods: {
     dodajElement() {
-      this.lista.push({id: id++, task: this.nowyElement, done: false, edit: false, update: true});
+      var text = this.nowyElement;
+      text = text.toUpperCase();
+      this.lista.push({id: id++, task: text, done: false, edit: false, update: true});
       this.nowyElement = ''
     },
     usunElement(todo) {
@@ -47,7 +49,7 @@ export default {
     <p>Dodaj nowe zadanie: {{ message }}</p>
 
     <input type="text" v-model="nowyElement">
-      <button @click="dodajElement">Dodaj</button>
+      <button @click="dodajElement()">Dodaj</button>
       <button @click="sortujElementy">Sortuj</button><br>
       <span>Taski do zrobienia:{{ this.lista.filter(element => element.done === false).length }}</span>
 
