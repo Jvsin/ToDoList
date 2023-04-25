@@ -11,7 +11,7 @@ export default {
   methods: {
     dodajElement() {
       this.lista.push({id: id++, task: this.nowyElement, done: false, edit: false, update: true});
-      this.nowyElement = '';
+      this.nowyElement = ''
     },
     usunElement(todo) {
       this.lista = this.lista.filter((t) => t !== todo)
@@ -48,7 +48,8 @@ export default {
 
     <input type="text" v-model="nowyElement">
       <button @click="dodajElement">Dodaj</button>
-      <button @click="sortujElementy">Sortuj</button>
+      <button @click="sortujElementy">Sortuj</button><br>
+      <span>Taski do zrobienia:{{ this.lista.filter(element => element.done === false).length }}</span>
 
       <ul>
         <li v-for = "element in lista" :key = "element.id">
@@ -64,5 +65,6 @@ export default {
         
         </li>
       </ul>
+      
   </main>
 </template>
