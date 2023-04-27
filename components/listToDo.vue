@@ -1,107 +1,102 @@
-<script>
-import { ref } from 'vue';
-
+<script setup>
+import {computed, ref } from 'vue'
+import TodoItem from './singleTask.vue' 
 
 let id = 0;
-let nowaNazwa = "";
-export default {
-  data() {
-    return {
-      lista: ref([]),
-      nowyElement: ref(''),
-      edycja: ref(false),
-      schowajUkonczone: ref(false)
-    }
-  },
+let newName = ""
+let list = ref([])
+let newElement = ref('')
+let editFlag = ref(false)
+let showDone = ref(false)
 
-  computed: {
-    pokazNieUkonczone() {
-      return this.schowajUkonczone
-        ? this.lista.filter((element)=> !element.done) : this.lista
-    }
-  },
+const showUnDone = computed (() => {
+  return showDone.value
+    ? list.value.filter((t) => !t.done) 
+    : list.value
+})
 
-  methods: {
-    dodajElement() {
-      var text = this.nowyElement;
-      text = text.toUpperCase();
-      this.lista.push({id: id++, task: text, done: false, edit: false, update: true});
-      this.nowyElement = ''
-      console.log(this.lista);
-    },
-    usunElement(todo) {
-      this.lista = this.lista.filter((t) => t !== todo)
-    },
-    wlaczEdycjeElementu(element) {
-      element.edit = true;
-      element.update = false;
-      this.edycja = true;
-      this.value = element.task;
-    },
-    edytujElement(element,text){
-      
-      text = text.toUpperCase();
-      element.task = text;
-      element.edit = false;
-      element.update = true;
-      this.edycja = false;
-      this.update = "";
-    },
-    odznaczElement(element) {
-      element.done = !element.done;
-    },
-    sortujElementy(){
-      let array = this.lista;
-      array = array.sort((a,b) =>  { 
-        if (a.task < b.task)
-          return -1;
-        if (a.task > b.task)
-          return 1;
-        return 0;
-      })
-      return array;
+function addElement() {
+    var text = newElement.value;
+    text = text.toUpperCase();
+    list.value.push({id: id++, task: text, done: false, edit: false, update: true});
+    newElement.value = ''
+}  
+
+function deleteElement(todo) {
+    if(todo.edit === true) {
+      editFlag.value = false
     }
+    list.value = list.value.filter((t) => t !==todo)
+}
+
+function enableEdit(element) {
+  if(editFlag.value !== true) {
+    element.edit = true;
+    element.update = false;
+    editFlag.value = true;
+    newName = element.task;
   }
 }
-</script>
 
-<script setup>
-    import TodoItem from "./singleTask.vue"
+function editElement(element,text){
+  text = text.toUpperCase();
+  element.task = text;
+  element.edit = false;
+  element.update = true;
+  this.editFlag = false;
+  newName = "";
+}
+
+function checkElement(element) {
+    element.done = !element.done;
+}
+
+function sortElements(){
+    let array = this.list;
+    array = array.sort((a,b) =>  { 
+    if (a.task < b.task)
+      return -1;
+    if (a.task > b.task)
+      return 1;
+    return 0;
+    })
+      return array;
+}
 </script>
 
 
 <template>
   <main>
-    <h1> LISTA TODO:</h1>
+    <h1> Lista TODO:</h1>
     <p>Dodaj nowe zadanie: {{ message }}</p>
 
-    <input type="text" v-model="nowyElement">
-      <button @click="dodajElement()">Dodaj</button>
-      <button @click="sortujElementy()">Sortuj</button><br>
+    <input type="text" v-model="newElement">
+      <button @click="addElement()">Dodaj</button>
+      <button @click="sortElements()">Sortuj</button><br>
       
       
-      <div v-if="edycja">
-        <input v-model="nowaNazwa" type="text">
+      <div v-if="editFlag">
+        <input v-model="newName" type="text">
       </div>      
       
       <ul>
-        <li v-for = "element in pokazNieUkonczone" :key = "element.id">
+        <li v-for = "element in showUnDone" :key = "element.id">
           <TodoItem
             :id = "element.id"
             :task = "element.task"
             :done = "element.done"
             :edit= "element.edit"
-            @usunTaska ="usunElement(element)"
-            @wlaczEdycjeTaska ="wlaczEdycjeElementu(element)"
-            @edytujTaska ="edytujElement(element,nowaNazwa)"
-            @odznaczTaska="odznaczElement(element)"
+            @deleteTask ="deleteElement(element)"
+            @enableEditTask ="enableEdit(element)"
+            @editTask ="editElement(element,newName)"
+            @checkTask="checkElement(element)"
           ></TodoItem>
 
         </li>
       </ul>
-      <span>Taski do zrobienia:{{ this.lista.filter(element => element.done === false).length }}</span><br>
-      <button @click="schowajUkonczone = !schowajUkonczone">
-        {{ schowajUkonczone ? 'Pokaz wszystko' : 'Schowaj ukonczone' }}
+      <span>Taski do zrobienia:{{ list.filter(element => element.done === false).length }}</span><br>
+      <button @click="showDone = !showDone">
+        {{ showDone ? 'Pokaz wszystko' : 'Schowaj ukonczone' }}
       </button>
       
   </main>

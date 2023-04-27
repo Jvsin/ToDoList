@@ -1,17 +1,29 @@
 <script setup>
 defineProps({
-  id: Number,
-  task: String,
-  done: Boolean,
-  edit: Boolean
+  id: {
+    type: Number,
+    default: 0
+  },
+  task:{
+    type: String,
+    default: ""
+  },
+  done: {
+    type: Boolean,
+    default: false
+  } ,
+  edit:{
+    type: Boolean,
+    default: false
+  } 
 })
-const emit = defineEmits(['usunTaska', 'wlaczEdycjeTaska', 'edytujTaska','odznaczTaska'])
+const emit = defineEmits(['deleteTask', 'enableEditTask', 'editTask','checkTask'])
 </script>
 
 <template>
-    <input type="checkbox" @click="emit('odznaczTaska')">
+    <input type="checkbox" @click="emit('checkTask')">
     <span>{{ task }}</span>
-    <button v-show="!edit" @click="emit('wlaczEdycjeTaska')">Edytuj</button>
-    <button v-show="edit" @click="emit('edytujTaska')">OK</button>
-    <button @click="emit('usunTaska')">X</button>
+    <button v-show="!edit" @click="emit('enableEditTask')">Edytuj</button>
+    <button v-show="edit" @click="emit('editTask')">OK</button>
+    <button @click="emit('deleteTask')">X</button>
 </template>
