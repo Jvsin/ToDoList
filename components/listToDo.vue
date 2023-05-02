@@ -1,67 +1,17 @@
 <script setup>
-import {computed, ref } from 'vue'
 import TodoItem from './singleTask.vue' 
+import {useCounterStore} from '../src/stores/counter.js'
+import { storeToRefs } from 'pinia';
+import { computed } from 'vue'
 
-let id = 0;
-let newName = ""
-let list = ref([])
-let newElement = ref('')
-let editFlag = ref(false)
-let showDone = ref(false)
+const store = useCounterStore()
 
-const showUnDone = computed (() => {
-  return showDone.value
-    ? list.value.filter((t) => !t.done) 
-    : list.value
-})
+const {addElement, deleteElement,enableEdit, editElement, checkElement, sortElements} = store
 
-function addElement() {
-    var text = newElement.value;
-    text = text.toUpperCase();
-    list.value.push({id: id++, task: text, done: false, edit: false, update: true});
-    newElement.value = ''
-}  
+const {list, newName, newElement, editFlag, showDone} = storeToRefs(store)
 
-function deleteElement(todo) {
-    if(todo.edit === true) {
-      editFlag.value = false
-    }
-    list.value = list.value.filter((t) => t !==todo)
-}
+const {showUnDone} = computed(()=> store.showUnDone)
 
-function enableEdit(element) {
-  if(editFlag.value !== true) {
-    element.edit = true;
-    element.update = false;
-    editFlag.value = true;
-    newName = element.task;
-  }
-}
-
-function editElement(element,text){
-  text = text.toUpperCase();
-  element.task = text;
-  element.edit = false;
-  element.update = true;
-  this.editFlag = false;
-  newName = "";
-}
-
-function checkElement(element) {
-    element.done = !element.done;
-}
-
-function sortElements(){
-    let array = this.list;
-    array = array.sort((a,b) =>  { 
-    if (a.task < b.task)
-      return -1;
-    if (a.task > b.task)
-      return 1;
-    return 0;
-    })
-      return array;
-}
 </script>
 
 
