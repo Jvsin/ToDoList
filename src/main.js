@@ -8,14 +8,24 @@ import { createVuetify } from 'vuetify'
 import * as components from 'vuetify/components'
 import * as directives from 'vuetify/directives'
 import { createI18n } from 'vue-i18n'
-
+import { aliases, fa } from 'vuetify/iconsets/fa'
+ 
 const app = createApp(App)
+
+const i18n = createI18n({
+  locale: 'pl',
+})
+
 const vuetify = createVuetify({
   components,
   directives,
-})
-const i18n = createI18n({
-  locale: 'pl',
+  icons: {
+      defaultSet: 'fa',
+      aliases,
+      sets: {
+        fa,
+      },
+  }
 })
 
 app.use(createPinia())

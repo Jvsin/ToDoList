@@ -63,6 +63,6 @@ function sortElements(){
     })
       return array;
 }
-  return { id, newName, list, newElement, editFlag, showDone, showUnDone, addElement, deleteElement, enableEdit, editElement,checkElement, 
+  return { id, newName, list, newElement, editFlag, showDone, showUnDone, addElement, deleteElement, enableEdit, editElement ,checkElement, 
       sortElements}
 })

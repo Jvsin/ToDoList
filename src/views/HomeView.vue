@@ -3,5 +3,10 @@
 </script>
 
 <template>
-  <main> <listToDo/> </main>
+  <v-container
+    style="margin-left: 250px;">
+    
+    <main> <listToDo/> </main>
+  </v-container>
+  
 </template>
