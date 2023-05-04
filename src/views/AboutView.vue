@@ -1,3 +1,5 @@
+<script lang="ts" setup>
+</script>
 <template>
   <v-container
     style = "margin-left: 250px">

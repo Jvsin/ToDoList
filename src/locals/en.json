@@ -11,5 +11,6 @@
     "editButton": "Edit",
     "taskCounter": "Tasks counter: ",
     "showTasks": "Show All",
-    "unShowTasks": "Hide completed"
+    "unShowTasks": "Hide completed",
+    "addWarning": "Task should have minimum 3 letters"
 }

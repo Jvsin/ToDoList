@@ -1,6 +1,6 @@
 <script setup>
 import TodoItem from './singleTask.vue' 
-import {useCounterStore} from '../src/stores/counter.js'
+import {useCounterStore} from '../src/stores/counter'
 import { storeToRefs } from 'pinia';
 //import { computed } from 'vue'
 import { ref } from 'vue'
@@ -12,7 +12,6 @@ const store = useCounterStore()
 const {list, newName, newElement, editFlag, showDone} = storeToRefs(store)
 
 // const {showUnDone} = computed(()=> store.showUnDone)
-
 
 // przeniesc do counter.js
 const rules = ref([
@@ -63,9 +62,6 @@ const rules = ref([
         </li>
       
       <span>{{ $t('taskCounter') }}{{ " " + list.filter(element => element.done === false).length }}</span><br>
-      <!-- <v-checkbox :label="showDone" style="color: green" @click="showDone = !showDone">
-        {{ showDone ? 'Pokaz wszystko' : 'Schowaj ukonczone' }}
-      </v-checkbox> -->
       <v-btn style="color: red" @click="showDone = !showDone">
         {{ showDone ? $t("showTasks") : $t("unShowTasks") }}  
       </v-btn>

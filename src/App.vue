@@ -1,4 +1,4 @@
-<script setup>
+<script lang="ts" setup>
 import { RouterLink, RouterView } from 'vue-router'
 import { ref } from "vue"
 

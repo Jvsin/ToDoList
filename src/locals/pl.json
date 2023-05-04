@@ -11,5 +11,6 @@
     "editButton": "Edytuj",
     "taskCounter": "Taski do zrobienia: ",
     "showTasks": "Pokaz wszystko",
-    "unShowTasks": "Schowaj ukonczone"
+    "unShowTasks": "Schowaj ukonczone",
+    "addWarning": "Zadanie musi miec wiecej niz 3 znaki"
 }

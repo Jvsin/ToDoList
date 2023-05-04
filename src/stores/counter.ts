@@ -2,14 +2,22 @@ import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 
 export const useCounterStore = defineStore('counter', () => {
-  
+
+interface singleTask {
+  id: Number;
+  task: String;
+  done: Boolean;
+  edit: Boolean
+}
+
+const list = ref<singleTask[]>([])
+
 let id = 0;
 let newName = ref("")
-let list = ref([])
+//let list = ref([])
 let newElement = ref('')
 let editFlag = ref(false)
 let showDone = ref(false)
-
 
 
 const showUnDone = computed (() => {
@@ -23,7 +31,7 @@ function addElement() {
     console.log(newElement.value.length)
     var text = newElement.value;
     text = text.toUpperCase();
-    list.value.push({id: id++, task: text, done: false, edit: false, update: true});
+    list.value.push({id: id++, task: text, done: false, edit: false});
     newElement.value = ''
   }
 }  
@@ -46,11 +54,11 @@ function enableEdit(element) {
 
 function editElement(element,text){
   text = text.toUpperCase();
-  element.task = text;
-  element.edit = false;
-  element.update = true;
-  this.editFlag = false;
-  newName.value = "";
+    element.task = text;
+    element.edit = false;
+    element.update = true;
+    editFlag.value = false;
+    newName.value = "";
 }
 
 function checkElement(element) {
@@ -58,7 +66,7 @@ function checkElement(element) {
 }
 
 function sortElements(){
-    let array = this.list;
+    let array = list.value;
     array = array.sort((a,b) =>  { 
     if (a.task < b.task)
       return -1;
