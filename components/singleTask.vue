@@ -21,9 +21,16 @@ const emit = defineEmits(['deleteTask', 'enableEditTask', 'editTask','checkTask'
 </script>
 
 <template>
-    <input type="checkbox" @click="emit('checkTask')">
-    <span>{{ task }}</span>
-    <button v-show="!edit" @click="emit('enableEditTask')">Edytuj</button>
-    <button v-show="edit" @click="emit('editTask')">OK</button>
-    <button @click="emit('deleteTask')">X</button>
+  <v-toolbar dense flat >
+    <v-div>
+      <v-checkbox :model-value="done" :label="text" style="color: green" @click="emit('checkTask')" ></v-checkbox>
+    </v-div>
+    
+    <v-card-text>
+      <span>{{ task }}</span>
+    </v-card-text>
+    <v-btn v-show="!edit" @click="emit('enableEditTask')">Edytuj</v-btn>
+    <v-btn v-show="edit" @click="emit('editTask')">OK</v-btn>
+    <v-btn @click="emit('deleteTask')">X</v-btn>
+  </v-toolbar>
 </template>

@@ -12,8 +12,13 @@ const drawer = ref(false)
         color="green"
         prominent
       >
-        <v-app-bar-nav-icon variant="tonal" :icon="['fas', 'bars']" @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+        <v-app-bar-nav-icon variant="tonal" @click.stop="drawer = !drawer">
+        
+        </v-app-bar-nav-icon>
+        <font-awesome-icon :icon="['fas', 'check']" />
+
         <v-toolbar-title>Nawigacja</v-toolbar-title>
+
         <v-spacer></v-spacer>
   
       </v-app-bar>

@@ -10,6 +10,7 @@ let newElement = ref('')
 let editFlag = ref(false)
 let showDone = ref(false)
 
+
 const showUnDone = computed (() => {
   return showDone.value
     ? list.value.filter((t) => !t.done) 
@@ -17,10 +18,13 @@ const showUnDone = computed (() => {
 })
 
 function addElement() {
+  if(newElement.value.length > 3){
+    console.log(newElement.value.length)
     var text = newElement.value;
     text = text.toUpperCase();
     list.value.push({id: id++, task: text, done: false, edit: false, update: true});
     newElement.value = ''
+  }
 }  
 
 function deleteElement(todo) {
@@ -35,7 +39,7 @@ function enableEdit(element) {
     element.edit = true;
     element.update = false;
     editFlag.value = true;
-    newName = element.task;
+    newName = "";
   }
 }
 
