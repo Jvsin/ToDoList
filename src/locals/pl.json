@@ -1,0 +1,15 @@
+{
+    "Titlename": "Nawigacja",
+    "languageLabel": "Język",
+    "siteDescription": "Dodaj nowe zadanie: ",
+    "home": "Lista ToDo",
+    "about": "O stronie",
+    "placeHolderAdd": "Nowy Task",
+    "placeHolderChange": "Nowa Nazwa",
+    "addButton": "Dodaj",
+    "sortButton": "Sortuj",
+    "editButton": "Edytuj",
+    "taskCounter": "Taski do zrobienia: ",
+    "showTasks": "Pokaz wszystko",
+    "unShowTasks": "Schowaj ukonczone"
+}

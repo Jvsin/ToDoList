@@ -1,0 +1,15 @@
+{
+    "Titlename": "Start",
+    "languageLabel": "Language",
+    "siteDescription": "Add new task: ",
+    "home": "Home",
+    "about": "About",
+    "placeHolderAdd": "New Task",
+    "placeHolderChange": "New Name",
+    "addButton": "Add",
+    "sortButton": "Sort",
+    "editButton": "Edit",
+    "taskCounter": "Tasks counter: ",
+    "showTasks": "Show All",
+    "unShowTasks": "Hide completed"
+}

@@ -27,19 +27,19 @@ const rules = ref([
 
 <template>
   <main>
-    <h1> Lista TODO:</h1>
-    <p>Dodaj nowe zadanie: {{ message }}</p>
+    <h1> {{ $t('siteDescription') }}</h1>
+    
     <v-sheet  width="300">
       <v-form  @submit.prevent>
-        <v-text-field  v-model="newElement" label="Nowy task" :rules="rules" width="300" class="mx-auto"></v-text-field>
-        <v-btn @click="store.addElement()">Dodaj</v-btn>
-        <v-btn @click="store.sortElements()">Sortuj</v-btn><br>
+        <v-text-field  v-model="newElement" :placeholder='$t("placeHolderAdd")' :rules="rules" width="300" class="mx-auto"></v-text-field>
+        <v-btn @click="store.addElement()">{{ $t('addButton') }}</v-btn>
+        <v-btn @click="store.sortElements()">{{ $t('sortButton') }}</v-btn><br>
       </v-form>
 
     </v-sheet>
       <div v-if="editFlag">
         <v-sheet width="300">
-          <v-text-field  v-model="newName" label="Zmien nazwe" width="300" class="mx-auto"></v-text-field>
+          <v-text-field  v-model="newName" :placeholder='$t("placeHolderChange")' width="300" class="mx-auto"></v-text-field>
         </v-sheet>
         
       </div>      
@@ -52,22 +52,22 @@ const rules = ref([
             :task = "element.task"
             :done = "element.done"
             :edit= "element.edit"
-            @deleteTask ="store.deleteElement(element)"
-            @enableEditTask ="store.enableEdit(element)"
-            @editTask ="store.editElement(element,newName)"
-            @checkTask="store.checkElement(element)"
+            @delete-task ="store.deleteElement(element)"
+            @enable-edit-task ="store.enableEdit(element)"
+            @edit-task ="store.editElement(element,newName)"
+            @check-task="store.checkElement(element)"
           ></TodoItem>
           </div>
           
 
         </li>
       
-      <span>Taski do zrobienia:{{ " " + list.filter(element => element.done === false).length }}</span><br>
+      <span>{{ $t('taskCounter') }}{{ " " + list.filter(element => element.done === false).length }}</span><br>
       <!-- <v-checkbox :label="showDone" style="color: green" @click="showDone = !showDone">
         {{ showDone ? 'Pokaz wszystko' : 'Schowaj ukonczone' }}
       </v-checkbox> -->
       <v-btn style="color: red" @click="showDone = !showDone">
-        {{ showDone ? 'Pokaz wszystko' : 'Schowaj ukonczone' }}
+        {{ showDone ? $t("showTasks") : $t("unShowTasks") }}  
       </v-btn>
 
 

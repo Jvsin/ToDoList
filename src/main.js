@@ -13,8 +13,14 @@ import '@fortawesome/fontawesome-free/css/all.css'
 
 const app = createApp(App)
 
+import en from './locals/en.json'
+import pl from './locals/pl.json'
+
 const i18n = createI18n({
   locale: 'pl',
+  messages: {
+    pl, en
+    }
 })
 
 const vuetify = createVuetify({

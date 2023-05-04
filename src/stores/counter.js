@@ -4,11 +4,12 @@ import { defineStore } from 'pinia'
 export const useCounterStore = defineStore('counter', () => {
   
 let id = 0;
-let newName = ""
+let newName = ref("")
 let list = ref([])
 let newElement = ref('')
 let editFlag = ref(false)
 let showDone = ref(false)
+
 
 
 const showUnDone = computed (() => {
@@ -39,7 +40,7 @@ function enableEdit(element) {
     element.edit = true;
     element.update = false;
     editFlag.value = true;
-    newName = "";
+    newName.value = "";
   }
 }
 
@@ -49,7 +50,7 @@ function editElement(element,text){
   element.edit = false;
   element.update = true;
   this.editFlag = false;
-  newName = "";
+  newName.value = "";
 }
 
 function checkElement(element) {
