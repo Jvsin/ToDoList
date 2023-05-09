@@ -15,6 +15,7 @@ const drawer = ref(false)
         <v-app-bar-nav-icon variant="tonal" @click.stop="drawer = !drawer">
         
         </v-app-bar-nav-icon>
+
         <font-awesome-icon :icon="['fas', 'check']" />
 
         <v-toolbar-title> {{ $t('Titlename') }}</v-toolbar-title>
@@ -32,7 +33,7 @@ const drawer = ref(false)
         <v-list>
           
           <v-btn block>
-              <RouterLink to="/">Home</RouterLink>
+              <RouterLink to="/"> {{ $t('home') }}</RouterLink>
           </v-btn>
 
         </v-list>
@@ -40,7 +41,15 @@ const drawer = ref(false)
         <v-list>
           
           <v-btn block>
-            <RouterLink to="/about">About</RouterLink>
+            <RouterLink to="/about">{{ $t('about') }}</RouterLink>
+          </v-btn>
+
+        </v-list>
+
+        <v-list>
+          
+          <v-btn block>
+            <RouterLink to="/Dashboard">{{ $t('dashboard') }}</RouterLink>
           </v-btn>
 
         </v-list>
@@ -59,5 +68,6 @@ const drawer = ref(false)
       <v-main style="min-height: 65px;" ></v-main>
     </v-layout>
 </v-card>
+
   <RouterView />
 </template>

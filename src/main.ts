@@ -9,7 +9,7 @@ import * as components from 'vuetify/components'
 import * as directives from 'vuetify/directives'
 import { createI18n } from 'vue-i18n'
 import { aliases, fa } from 'vuetify/iconsets/fa'
-import '@fortawesome/fontawesome-free/css/all.css'
+//import '@fortawesome/fontawesome-free/css/all.css'
 
 const app = createApp(App)
 
@@ -34,6 +34,29 @@ const vuetify = createVuetify({
       },
   }
 })
+
+
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCQGwKC7yTRfyiW7aSchwDBgCP-yOddmdw",
+  authDomain: "project-jvsin.firebaseapp.com",
+  projectId: "project-jvsin",
+  storageBucket: "project-jvsin.appspot.com",
+  messagingSenderId: "834202757982",
+  appId: "1:834202757982:web:e2c676d2a8f45e84a77dcf",
+  measurementId: "G-L1KCWXNRBP",
+  FIREBASE_TOKEN: "1//0cywBikIT4orsCgYIARAAGAwSNwF-L9IryHq6t8Brb66KCigNBlou58SSOkKwj5G5_gXhpX7MhiXGeM_FurSXUdYpcQXhN5hIMCA"
+};
+
+// Initialize Firebase
+const app1 = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app1);
+
+export {app, analytics}
+
 
 app.use(createPinia())
 app.use(router)

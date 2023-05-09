@@ -4,20 +4,20 @@ import { defineStore } from 'pinia'
 export const useCounterStore = defineStore('counter', () => {
 
 interface singleTask {
-  id: Number;
-  task: String;
-  done: Boolean;
-  edit: Boolean
+  id: number;
+  task: string;
+  done: boolean;
+  edit: boolean
 }
 
 const list = ref<singleTask[]>([])
 
 let id = 0;
-let newName = ref("")
+const newName = ref("")
 //let list = ref([])
-let newElement = ref('')
-let editFlag = ref(false)
-let showDone = ref(false)
+const newElement = ref('')
+const editFlag = ref(false)
+const showDone = ref(false)
 
 
 const showUnDone = computed (() => {
@@ -29,7 +29,7 @@ const showUnDone = computed (() => {
 function addElement() {
   if(newElement.value.length > 3){
     console.log(newElement.value.length)
-    var text = newElement.value;
+    let text = newElement.value;
     text = text.toUpperCase();
     list.value.push({id: id++, task: text, done: false, edit: false});
     newElement.value = ''
