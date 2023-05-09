@@ -37,7 +37,7 @@ const vuetify = createVuetify({
 
 
 import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
+//import { getAnalytics } from "firebase/analytics";
 
 
 const firebaseConfig = {
@@ -52,10 +52,11 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-const app1 = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app1);
+// const app1 = initializeApp(firebaseConfig);
+// const analytics = getAnalytics(app1);
+initializeApp(firebaseConfig)
 
-export {app, analytics}
+//export {app, analytics}
 
 
 app.use(createPinia())

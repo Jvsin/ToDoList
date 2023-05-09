@@ -15,5 +15,17 @@
     "taskCounter": "Tasks counter: ",
     "showTasks": "Show All",
     "unShowTasks": "Hide completed",
-    "addWarning": "Task should have minimum 3 letters"
+    "addWarning": "Task should have minimum 3 letters",
+
+    "login": "login",
+    "register": "Register",
+    "password": "Password",
+    "registerWith": "Register with Google",
+    "signUpWith": "Sign Up With",
+    "signingUpWelcome": "Sign In",
+    "signUp": "Sign In",
+    "IDontHaveAccount": "I don't have account",
+    "signOut": "Logout",
+
+    "createAccount": "Create Account"
 }

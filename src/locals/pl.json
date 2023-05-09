@@ -15,5 +15,17 @@
     "taskCounter": "Taski do zrobienia: ",
     "showTasks": "Pokaz wszystko",
     "unShowTasks": "Schowaj ukonczone",
-    "addWarning": "Zadanie musi miec wiecej niz 3 znaki"
+    "addWarning": "Zadanie musi miec wiecej niz 3 znaki",
+
+    "login": "Login",
+    "register": "Rejestracja",
+    "password": "Hasło",
+    "registerWith": "Zarejestruj przez Google",
+    "signUpWith": "Zaloguj przez",
+    "signingUpWelcome": "Zaloguj",
+    "signUp": "Zaloguj",
+    "IDontHaveAccount": "Nie mam konta",
+    "signOut": "wyloguj",
+    "createAccount": "Stwórz konto"
+    
 }

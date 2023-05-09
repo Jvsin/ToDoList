@@ -20,7 +20,6 @@ const rules = ref([
     return 'Zadanie musi miec wiecej niz 3 znaki'
   }
 ])
-
 </script>
 
 
@@ -31,12 +30,18 @@ const rules = ref([
     <v-sheet  width="300">
       <v-form  @submit.prevent>
         <v-text-field  v-model="newElement" :placeholder='$t("placeHolderAdd")' :rules="rules" width="300" class="mx-auto"></v-text-field>
+        
         <v-btn @click="store.addElement()">{{ $t('addButton') }}</v-btn>
-        <v-btn @click="store.sortElements()">{{ $t('sortButton') }}</v-btn><br>
+
+        <v-btn @click="store.sortElements()">{{ $t('sortButton') }}</v-btn>
+        
+        <br>
+
       </v-form>
 
     </v-sheet>
-      <div v-if="editFlag">
+      
+    <div v-if="editFlag">
         <v-sheet width="300">
           <v-text-field  v-model="newName" :placeholder='$t("placeHolderChange")' width="300" class="mx-auto"></v-text-field>
         </v-sheet>
@@ -53,7 +58,7 @@ const rules = ref([
             :edit= "element.edit"
             @delete-task ="store.deleteElement(element)"
             @enable-edit-task ="store.enableEdit(element)"
-            @edit-task ="store.editElement(element,newName)"
+            @edit-task ="store.editElement(element, newName)"
             @check-task="store.checkElement(element)"
           ></TodoItem>
           </div>
@@ -61,7 +66,11 @@ const rules = ref([
 
         </li>
       
-      <span>{{ $t('taskCounter') }}{{ " " + list.filter(element => element.done === false).length }}</span><br>
+      <span>{{ $t('taskCounter') }} {{ ` ${list.filter(element => element.done === false).length}` }}
+      </span>
+      
+      <br>
+      
       <v-btn style="color: red" @click="showDone = !showDone">
         {{ showDone ? $t("showTasks") : $t("unShowTasks") }}  
       </v-btn>
@@ -75,5 +84,4 @@ const rules = ref([
     max-width: 800px;
     margin: 0;
   }
-
 </style>
