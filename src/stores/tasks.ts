@@ -1,5 +1,9 @@
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { defineStore } from 'pinia'
+import { getAuth } from 'firebase/auth'
+import { db } from '../main'
+import { collection, getDocs, query, where} from 'firebase/firestore'
+
 
 export const useCounterStore = defineStore('counter', () => {
 
@@ -13,12 +17,45 @@ interface singleTask {
 const list = ref<singleTask[]>([])
 
 let id = 0;
+let userID = ''
 const newName = ref("")
 //let list = ref([])
 const newElement = ref('')
 const editFlag = ref(false)
 const showDone = ref(false)
 
+const collectionUsers = collection(db, 'tasks')
+const getTasksQuery = getDocs(query(collectionUsers, where('uid', '==', userID)))
+
+const onSuccess = (docs) => {
+  if (Array.isArray(docs)) {
+    list.value = docs.map((item) => item.data())
+  } else {
+    console.error('Invalid data format:', docs)
+  }
+}
+
+onMounted(() => {
+  getDocs(collectionUsers)
+  getTasksQuery
+    .then((snapshot) => {
+      const docs = snapshot.docs
+      onSuccess(docs)
+    })
+    .catch((error) => {
+      console.error('Error retrieving documents:', error)
+    })
+})
+
+
+const currentUser = getAuth().currentUser
+if(currentUser) {
+  userID = currentUser.uid
+  console.log("Current's user ID: " + userID)
+}
+else {
+  console.log("No user currently logged in")
+}
 
 const showUnDone = computed (() => {
   return showDone.value

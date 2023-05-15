@@ -1,40 +1,46 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import {
-  getAuth,
-  createUserWithEmailAndPassword,
-  GoogleAuthProvider,
-  signInWithPopup
-} from 'firebase/auth'
-import { useRouter } from 'vue-router'
 import { mdiGoogle } from '@mdi/js'
+import { useUserStore } from '../stores/users'
+import { storeToRefs } from 'pinia'
 
-const email = ref('')
-const password = ref('')
-const router = useRouter()
-const register = () => {
-  createUserWithEmailAndPassword(getAuth(), email.value, password.value)
-    .then(() => {
-      console.log('Successfully registered!')
-      router.push('/dashboard')
-    })
-    .catch((error) => {
-      console.log(error.message)
-      alert(error.message)
-    })
-}
+const userStore = useUserStore()
+const { email, password } = storeToRefs(userStore)
+// import { ref } from 'vue'
+// import {
+//   getAuth,
+//   createUserWithEmailAndPassword,
+//   GoogleAuthProvider,
+//   signInWithPopup
+// } from 'firebase/auth'
+// import { useRouter } from 'vue-router'
+// import { mdiGoogle } from '@mdi/js'
 
-const registerGoogle = () => {
-  const provider = new GoogleAuthProvider()
-  signInWithPopup(getAuth(), provider)
-    .then(() => {
-      console.log('Successfully registered with google!')
-      router.push('/dashboard')
-    })
-    .catch((error) => {
-      console.log(error.message)
-    })
-}
+// const email = ref('')
+// const password = ref('')
+// const router = useRouter()
+// const register = () => {
+//   createUserWithEmailAndPassword(getAuth(), email.value, password.value)
+//     .then(() => {
+//       console.log('Successfully registered!')
+//       router.push('/dashboard')
+//     })
+//     .catch((error) => {
+//       console.log(error.message)
+//       alert(error.message)
+//     })
+// }
+
+// const registerGoogle = () => {
+//   const provider = new GoogleAuthProvider()
+//   signInWithPopup(getAuth(), provider)
+//     .then(() => {
+//       console.log('Successfully registered with google!')
+//       router.push('/dashboard')
+//     })
+//     .catch((error) => {
+//       console.log(error.message)
+//     })
+// }
 </script>
 
 <template>
@@ -49,7 +55,7 @@ const registerGoogle = () => {
           <v-text-field
             v-model="email"
             :label="$t('login')"
-            placeholder="johndoe@gmail.com"
+            placeholder="email@gmail.com"
             type="email"
             variant="outlined"
           ></v-text-field>
@@ -60,7 +66,6 @@ const registerGoogle = () => {
             v-model="password"
             :label="$t('password')"
             type="input"
-            :hint="$t('PasswordHint')"
             variant="outlined"
           ></v-text-field>
         </v-col>
@@ -70,7 +75,7 @@ const registerGoogle = () => {
             color="#008000"
             width="70%"
             class="rounded"
-            @click="register"
+            @click="userStore.register"
             >{{ $t('register') }}</v-btn
           >
         </v-col>
@@ -81,7 +86,7 @@ const registerGoogle = () => {
             width="50%"
             :append-icon="mdiGoogle"
             class="rounded"
-            @click="registerGoogle"
+            @click="userStore.registerGoogle"
             >{{ $t('registerWith') }}
           </v-btn>
         </v-col>

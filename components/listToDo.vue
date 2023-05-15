@@ -1,9 +1,20 @@
 <script setup>
 import TodoItem from './singleTask.vue' 
-import {useCounterStore} from '../src/stores/counter'
+import {useCounterStore} from '../src/stores/tasks'
 import { storeToRefs } from 'pinia';
 //import { computed } from 'vue'
 import { ref } from 'vue'
+import { getAuth } from 'firebase/auth'
+
+const currentUser = getAuth().currentUser
+let userID = ""
+if(currentUser) {
+  userID = currentUser.uid
+  console.log("Current's user ID: " + userID)
+}
+else {
+  console.log("No user currently logged in")
+}
 
 const store = useCounterStore()
 

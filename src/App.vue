@@ -64,7 +64,7 @@ const drawer = ref(false)
 
         </v-list>
 
-        <v-list>
+        <v-list block>
           <userAccount> </userAccount>
         </v-list>
 

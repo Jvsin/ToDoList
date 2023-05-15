@@ -9,9 +9,8 @@ import * as components from 'vuetify/components'
 import * as directives from 'vuetify/directives'
 import { createI18n } from 'vue-i18n'
 import { aliases, fa } from 'vuetify/iconsets/fa'
-//import '@fortawesome/fontawesome-free/css/all.css'
-
-const app = createApp(App)
+import '@fortawesome/fontawesome-free/css/all.css'
+//import { getAuth } from 'firebase/auth'
 
 import en from './locals/en.json'
 import pl from './locals/pl.json'
@@ -37,8 +36,7 @@ const vuetify = createVuetify({
 
 
 import { initializeApp } from "firebase/app";
-//import { getAnalytics } from "firebase/analytics";
-
+import { getFirestore } from 'firebase/firestore'
 
 const firebaseConfig = {
   apiKey: "AIzaSyCQGwKC7yTRfyiW7aSchwDBgCP-yOddmdw",
@@ -51,13 +49,10 @@ const firebaseConfig = {
   FIREBASE_TOKEN: "1//0cywBikIT4orsCgYIARAAGAwSNwF-L9IryHq6t8Brb66KCigNBlou58SSOkKwj5G5_gXhpX7MhiXGeM_FurSXUdYpcQXhN5hIMCA"
 };
 
-// Initialize Firebase
-// const app1 = initializeApp(firebaseConfig);
-// const analytics = getAnalytics(app1);
 initializeApp(firebaseConfig)
+export const db = getFirestore()
 
-//export {app, analytics}
-
+const app = createApp(App)
 
 app.use(createPinia())
 app.use(router)

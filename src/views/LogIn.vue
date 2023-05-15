@@ -1,40 +1,10 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import {
-  getAuth,
-  signInWithEmailAndPassword,
-  GoogleAuthProvider,
-  signInWithPopup
-} from 'firebase/auth'
-import { useRouter } from 'vue-router'
 import { mdiGoogle } from '@mdi/js'
+import { useUserStore } from '../stores/users'
+import { storeToRefs } from 'pinia'
 
-const email = ref('')
-const password = ref('')
-const router = useRouter()
-const register = () => {
-  signInWithEmailAndPassword(getAuth(), email.value, password.value)
-    .then(() => {
-      console.log('Successfully logged in!')
-      router.push('/dashboard')
-    })
-    .catch((error) => {
-      console.log(error.message)
-      alert(error.message)
-    })
-}
-
-const registerGoogle = () => {
-  const provider = new GoogleAuthProvider()
-  signInWithPopup(getAuth(), provider)
-    .then(() => {
-      console.log('Successfully logged with google account!')
-      router.push('/dashboard')
-    })
-    .catch((error) => {
-      console.log(error.message)
-    })
-}
+const userStore = useUserStore()
+const { email, password } = storeToRefs(userStore)
 </script>
 
 <template>
@@ -43,25 +13,24 @@ const registerGoogle = () => {
   </v-row>
 
   <v-form>
-    <v-row justify="center" class="ma-4">
-      <v-col cols="12" md="8"> </v-col>
+    <v-row justify="center">
+      <v-col cols="12" md="10"> </v-col>
 
-      <v-col cols="12" md="8">
+      <v-col cols="10" md="7">
         <v-text-field
           v-model="email"
           :label="$t('login') "
-          placeholder="johndoe@gmail.com"
+          placeholder="email@gmail.com"
           type="email"
           variant="outlined"
         ></v-text-field>
       </v-col>
 
-      <v-col cols="12" md="8">
+      <v-col cols="10" md="7">
         <v-text-field
           v-model="password"
           :label="$t('password')"
-          type="input"
-          :hint="$t('PasswordHint')"
+          type="password"
           variant="outlined"
         ></v-text-field>
       </v-col>
@@ -71,7 +40,7 @@ const registerGoogle = () => {
         color="#008000"
         variant="flat" 
         width="70%" 
-        @click="register">{{ $t('signUp') }}</v-btn>
+        @click="userStore.signIn">{{ $t('signUp') }}</v-btn>
       </v-col>
 
       <v-col align="center" cols="12" md="8">
@@ -80,7 +49,7 @@ const registerGoogle = () => {
           width="50%"
           :append-icon="mdiGoogle"
           class="rounded"
-          @click="registerGoogle"
+          @click="userStore.registerGoogle"
           >{{ $t('signUpWith') }}
         </v-btn>
       </v-col>
