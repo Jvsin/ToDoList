@@ -20,7 +20,7 @@ const store = useCounterStore()
 
 // const {addElement, deleteElement, enableEdit, editElement, checkElement, sortElements} = store
 
-const {list, newName, newElement, editFlag, showDone} = storeToRefs(store)
+const {list, newName, newElement, showDone} = storeToRefs(store)
 
 // const {showUnDone} = computed(()=> store.showUnDone)
 
@@ -51,13 +51,7 @@ const rules = ref([
       </v-form>
 
     </v-sheet>
-      
-    <div v-if="editFlag">
-        <v-sheet width="300">
-          <v-text-field  v-model="newName" :placeholder='$t("placeHolderChange")' width="300" class="mx-auto"></v-text-field>
-        </v-sheet>
-        
-      </div>      
+    
       
       
         <li v-for = "element in store.showUnDone" :key = "element.id">

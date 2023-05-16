@@ -84,8 +84,5 @@ const handleSingOut = () => {
     router.push('/')
   })
 }
-
-
-
   return { email, password, register, registerGoogle, signIn, name, userAuth, isLoggedIn, handleSingOut}
 })

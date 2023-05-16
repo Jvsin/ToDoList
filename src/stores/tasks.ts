@@ -1,9 +1,9 @@
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 import { getAuth } from 'firebase/auth'
 import { db } from '../main'
 //import { collection, getDocs, where, query, setDoc, updateDoc} from 'firebase/firestore'
-import { collection, getDocs, addDoc, doc, where, query, updateDoc, deleteDoc } from 'firebase/firestore'
+import { collection, addDoc, getDocs, doc, where, query, updateDoc, deleteDoc } from 'firebase/firestore'
 
 export interface singleTask {
   id: number;
@@ -17,11 +17,9 @@ export const useCounterStore = defineStore('counter', () => {
 
 const list = ref<singleTask[]>([])
 
-//let index: number
 let id = 0;
 let userID = ''
 const newName = ref("")
-//let list = ref([])
 const newElement = ref('')
 const editFlag = ref(false)
 const showDone = ref(false)
@@ -35,48 +33,34 @@ else {
   console.log("No user currently logged in")
 }
 
-
 const collectionUsers = collection(db, 'tasks')
 const TaskCollection = query(collectionUsers, where('uid', '==', userID))
-//const getTasksQuery = getDocs(TaskCollection)
+const tasksQuery = getDocs(TaskCollection)
 
 const onSuccess = (docs) => {
   if (Array.isArray(docs)) {
-    list.value = docs.map((item) => item.data())
-    id = list.value.length
-  }
-  else {
+    list.value = docs.map((item) => item.singleTask())
+  } else {
     console.error('Invalid data format:', docs)
   }
 }
 
-onMounted(() => {
-  getDocs(TaskCollection)
-    .then((snapshot) => {
-      const docs = snapshot.docs
-      onSuccess(docs)
-    })
-    .catch((error) => {
-      console.error('Error retrieving documents:', error)
-    })
-})
 
+//TODO: pobieranie tasków z bazy danych
+tasksQuery
+  .then((snapshot) => {
+    const docs = snapshot.docs
+    onSuccess(docs)
+  })
+  .catch((error) => {
+    console.error('Error retrieving documents:', error)
+  })
 
 const showUnDone = computed (() => {
   return showDone.value
     ? list.value.filter((t) => !t.done) 
     : list.value
 })
-
-// function addElement() {
-//   if(newElement.value.length > 3){
-//     console.log(newElement.value.length)
-//     let text = newElement.value;
-//     text = text.toUpperCase();
-//     list.value.push({id: id++, task: text, done: false, edit: false});
-//     newElement.value = ''
-//   }
-// }  
 
 async function addElement() {
     if(newElement.value.length < 4){
@@ -124,15 +108,6 @@ function enableEdit(element) {
     //index = list.value.indexOf(element)
   }
 }
-
-// function editElement(element,text){
-//   text = text.toUpperCase();
-//     element.task = text;
-//     element.edit = false;
-//     element.update = true;
-//     editFlag.value = false;
-//     newName.value = "";
-// }
 
 async function editElement(element,text) {
   text = newName.value
