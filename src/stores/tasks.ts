@@ -3,14 +3,14 @@ import { defineStore } from 'pinia'
 import { getAuth } from 'firebase/auth'
 import { db } from '../main'
 //import { collection, getDocs, where, query, setDoc, updateDoc} from 'firebase/firestore'
-import { collection, addDoc, getDocs, doc, where, query, updateDoc, deleteDoc } from 'firebase/firestore'
+import { collection, addDoc, doc, where, query, updateDoc, deleteDoc, getDocs } from 'firebase/firestore'
 
 export interface singleTask {
   id: number;
   task: string;
   done: boolean;
   edit: boolean;
-  userId: string
+  docId: string
 }
 
 export const useCounterStore = defineStore('counter', () => {
@@ -18,7 +18,7 @@ export const useCounterStore = defineStore('counter', () => {
 const list = ref<singleTask[]>([])
 
 let id = 0;
-let userID = ''
+let userID = getAuth().currentUser?.uid
 const newName = ref("")
 const newElement = ref('')
 const editFlag = ref(false)
@@ -33,20 +33,18 @@ else {
   console.log("No user currently logged in")
 }
 
-const collectionUsers = collection(db, 'tasks')
-const TaskCollection = query(collectionUsers, where('uid', '==', userID))
-const tasksQuery = getDocs(TaskCollection)
+const TaskCollectionRef = collection(db, 'tasks')
+const queryCollection = query(TaskCollectionRef, where('userId', '==', userID))
+const tasksQuery = getDocs(queryCollection)
 
 const onSuccess = (docs) => {
   if (Array.isArray(docs)) {
-    list.value = docs.map((item) => item.singleTask())
+    list.value = docs.map((item) => item.data())
   } else {
     console.error('Invalid data format:', docs)
   }
 }
 
-
-//TODO: pobieranie tasków z bazy danych
 tasksQuery
   .then((snapshot) => {
     const docs = snapshot.docs
@@ -56,7 +54,7 @@ tasksQuery
     console.error('Error retrieving documents:', error)
   })
 
-const showUnDone = computed (() => {
+  const showUnDone = computed (() => {
   return showDone.value
     ? list.value.filter((t) => !t.done) 
     : list.value
@@ -69,33 +67,40 @@ async function addElement() {
     let text = newElement.value;
     text = text.toUpperCase();
 
-
     const newTask: singleTask = {
       id: id,
       task: text,
       done: false,
       edit: false,
-      userId: ''
+      docId: ''
     }
 
-    const docRef = await addDoc(collectionUsers, newTask)
-    newTask.userId = docRef.id
-    const taskRef = doc(db, 'tasks', newTask.userId)
+    const data = {
+      id: id,
+      task: text,
+      done: false,
+      userId: userID,
+      docId: ''
+    }
+
+    const docRef = await addDoc(TaskCollectionRef, data)
+    newTask.docId = docRef.id
+    const taskRef = doc(db, 'tasks', newTask.docId)
 
     await updateDoc(taskRef, {
-      userId: docRef.id
+      docId: docRef.id
     })
 
     list.value.push(newTask)
-    id++
     newElement.value = "" 
+    id++
 }  
 
 async function deleteElement(todo) {
     if(todo.edit === true) {
       editFlag.value = false
     }
-    await deleteDoc(doc(db, 'tasks', todo.userId))
+    await deleteDoc(doc(db, 'tasks', todo.docId))
     list.value = list.value.filter((t) => t !==todo)
 }
 
@@ -115,7 +120,7 @@ async function editElement(element,text) {
   element.task = text
   element.edit = false
 
-  const taskRef = doc(db,'tasks', element.userId)
+  const taskRef = doc(db,'tasks', element.docId)
   await updateDoc(taskRef, {
     task: text
   })
