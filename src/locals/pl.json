@@ -1,0 +1,32 @@
+{
+  "Titlename": "Nawigacja",
+  "languageLabel": "Język",
+  "siteDescription": "Dodaj nowe zadanie: ",
+  "welcome": "Witaj!",
+  "homeDesc": "Jest to strona do tworzenia listy tasków do zrobienia. Rozwiń pasek po lewej, by zmienić panel.",
+  "home": "Strona Startowa",
+  "about": "O stronie",
+  "dashboard": "Lista To Do",
+  "placeHolderAdd": "Nowy Task",
+  "placeHolderChange": "Nowa Nazwa",
+  "addButton": "Dodaj",
+  "sortButton": "Sortuj",
+  "editButton": "Edytuj",
+  "taskCounter": "Taski do zrobienia: ",
+  "showTasks": "Pokaz wszystko",
+  "unShowTasks": "Schowaj ukonczone",
+  "addWarning": "Zadanie musi miec wiecej niz 3 znaki",
+
+  "login": "Login",
+  "register": "Rejestracja",
+  "password": "Hasło",
+  "registerWith": "Zarejestruj przez Google",
+  "signUpWith": "Zaloguj przez",
+  "signingUpWelcome": "Zaloguj",
+  "signUp": "Zaloguj",
+  "IDontHaveAccount": "Nie mam konta",
+  "signOut": "wyloguj",
+  "loggedAs": "Zalogowany: ",
+
+  "createAccount": "Stwórz konto"
+}
