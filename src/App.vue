@@ -16,6 +16,7 @@ const drawer = ref(false)
 
         <NavBar></NavBar>
       </v-app-bar>
+      <!-- easteregg -->
 
       <v-navigation-drawer
         v-model="drawer"
