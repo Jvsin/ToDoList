@@ -6,7 +6,6 @@ build site:
   image: rambabusaravanan/firebase:latest
   variables:
     VITE_CI_COMMIT_REF_NAME: $CI_COMMIT_REF_NAME
-    FIREBASE_TOKEN: $1//0cywBikIT4orsCgYIARAAGAwSNwF-L9IryHq6t8Brb66KCigNBlou58SSOkKwj5G5_gXhpX7MhiXGeM_FurSXUdYpcQXhN5hIMCA
   before_script:
   - corepack enable
   - corepack prepare pnpm@latest-8 --activate

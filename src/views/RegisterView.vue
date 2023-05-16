@@ -5,42 +5,6 @@ import { storeToRefs } from 'pinia'
 
 const userStore = useUserStore()
 const { email, password } = storeToRefs(userStore)
-// import { ref } from 'vue'
-// import {
-//   getAuth,
-//   createUserWithEmailAndPassword,
-//   GoogleAuthProvider,
-//   signInWithPopup
-// } from 'firebase/auth'
-// import { useRouter } from 'vue-router'
-// import { mdiGoogle } from '@mdi/js'
-
-// const email = ref('')
-// const password = ref('')
-// const router = useRouter()
-// const register = () => {
-//   createUserWithEmailAndPassword(getAuth(), email.value, password.value)
-//     .then(() => {
-//       console.log('Successfully registered!')
-//       router.push('/dashboard')
-//     })
-//     .catch((error) => {
-//       console.log(error.message)
-//       alert(error.message)
-//     })
-// }
-
-// const registerGoogle = () => {
-//   const provider = new GoogleAuthProvider()
-//   signInWithPopup(getAuth(), provider)
-//     .then(() => {
-//       console.log('Successfully registered with google!')
-//       router.push('/dashboard')
-//     })
-//     .catch((error) => {
-//       console.log(error.message)
-//     })
-// }
 </script>
 
 <template>
@@ -71,13 +35,9 @@ const { email, password } = storeToRefs(userStore)
         </v-col>
 
         <v-col align="center" cols="12" md="8">
-          <v-btn
-            color="#008000"
-            width="70%"
-            class="rounded"
-            @click="userStore.register"
-            >{{ $t('register') }}</v-btn
-          >
+          <v-btn color="#008000" width="70%" class="rounded" @click="userStore.register">{{
+            $t('register')
+          }}</v-btn>
         </v-col>
 
         <v-col align="center" cols="12" md="8">

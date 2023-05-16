@@ -9,7 +9,7 @@ const { email, password } = storeToRefs(userStore)
 
 <template>
   <v-row class="ma-4" justify="center">
-    <h1>{{ $t('signingUpWelcome')}}</h1>
+    <h1>{{ $t('signingUpWelcome') }}</h1>
   </v-row>
 
   <v-form>
@@ -19,7 +19,7 @@ const { email, password } = storeToRefs(userStore)
       <v-col cols="10" md="7">
         <v-text-field
           v-model="email"
-          :label="$t('login') "
+          :label="$t('login')"
           placeholder="email@gmail.com"
           type="email"
           variant="outlined"
@@ -36,11 +36,9 @@ const { email, password } = storeToRefs(userStore)
       </v-col>
 
       <v-col align="center" cols="12" md="8">
-        <v-btn 
-        color="#008000"
-        variant="flat" 
-        width="70%" 
-        @click="userStore.signIn">{{ $t('signUp') }}</v-btn>
+        <v-btn color="#008000" variant="flat" width="70%" @click="userStore.signIn">{{
+          $t('signUp')
+        }}</v-btn>
       </v-col>
 
       <v-col align="center" cols="12" md="8">

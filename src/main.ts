@@ -18,36 +18,37 @@ import pl from './locals/pl.json'
 const i18n = createI18n({
   locale: 'pl',
   messages: {
-    pl, en
-    }
+    pl,
+    en
+  }
 })
 
 const vuetify = createVuetify({
   components,
   directives,
   icons: {
-      defaultSet: 'fa',
-      aliases,
-      sets: {
-        fa,
-      },
+    defaultSet: 'fa',
+    aliases,
+    sets: {
+      fa
+    }
   }
 })
 
-
-import { initializeApp } from "firebase/app";
+import { initializeApp } from 'firebase/app'
 import { getFirestore } from 'firebase/firestore'
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCQGwKC7yTRfyiW7aSchwDBgCP-yOddmdw",
-  authDomain: "project-jvsin.firebaseapp.com",
-  projectId: "project-jvsin",
-  storageBucket: "project-jvsin.appspot.com",
-  messagingSenderId: "834202757982",
-  appId: "1:834202757982:web:e2c676d2a8f45e84a77dcf",
-  measurementId: "G-L1KCWXNRBP",
-  FIREBASE_TOKEN: "1//0cywBikIT4orsCgYIARAAGAwSNwF-L9IryHq6t8Brb66KCigNBlou58SSOkKwj5G5_gXhpX7MhiXGeM_FurSXUdYpcQXhN5hIMCA"
-};
+  apiKey: 'AIzaSyCQGwKC7yTRfyiW7aSchwDBgCP-yOddmdw',
+  authDomain: 'project-jvsin.firebaseapp.com',
+  projectId: 'project-jvsin',
+  storageBucket: 'project-jvsin.appspot.com',
+  messagingSenderId: '834202757982',
+  appId: '1:834202757982:web:e2c676d2a8f45e84a77dcf',
+  measurementId: 'G-L1KCWXNRBP',
+  FIREBASE_TOKEN:
+    '1//0cywBikIT4orsCgYIARAAGAwSNwF-L9IryHq6t8Brb66KCigNBlou58SSOkKwj5G5_gXhpX7MhiXGeM_FurSXUdYpcQXhN5hIMCA'
+}
 
 initializeApp(firebaseConfig)
 export const db = getFirestore()

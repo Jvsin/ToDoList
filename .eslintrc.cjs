@@ -3,7 +3,7 @@ require('@rushstack/eslint-patch/modern-module-resolution')
 
 module.exports = {
   root: true,
-  'extends': [
+  extends: [
     'plugin:vue/vue3-recommended',
     'eslint:recommended',
     '@vue/eslint-config-prettier/skip-formatting',
@@ -16,7 +16,7 @@ module.exports = {
     es6: true
   },
 
-  parserOptions: { 
+  parserOptions: {
     ecmaVersion: 'latest',
     vueFeatures: {
       filter: true,
@@ -146,5 +146,4 @@ module.exports = {
       }
     }
   ]
-
 }

@@ -1,4 +1,4 @@
-import { ref, onMounted} from 'vue'
+import { ref, onMounted } from 'vue'
 import { defineStore } from 'pinia'
 import { useRouter } from 'vue-router'
 //import { useCounterStore } from './counter'
@@ -12,7 +12,6 @@ import {
   UserCredential,
   onAuthStateChanged,
   signOut
-
 } from 'firebase/auth'
 
 export const useUserStore = defineStore('user', () => {
@@ -21,7 +20,7 @@ export const useUserStore = defineStore('user', () => {
   const router = useRouter()
   const name = ref<string | undefined>('')
   const userAuth = ref<UserCredential | null>(null)
-  
+
   const register = () => {
     createUserWithEmailAndPassword(getAuth(), email.value, password.value)
       .then((userCredentials) => {
@@ -39,7 +38,7 @@ export const useUserStore = defineStore('user', () => {
   const registerGoogle = () => {
     const provider = new GoogleAuthProvider()
     signInWithPopup(getAuth(), provider)
-        .then((userCredentials) => {
+      .then((userCredentials) => {
         userAuth.value = userCredentials
         name.value = userCredentials.user?.displayName || undefined
         console.log('Successfully registered with google!')
@@ -52,7 +51,7 @@ export const useUserStore = defineStore('user', () => {
 
   const signIn = () => {
     signInWithEmailAndPassword(getAuth(), email.value, password.value)
-        .then((userCredentials) => {
+      .then((userCredentials) => {
         userAuth.value = userCredentials
         name.value = userCredentials.user?.displayName || undefined
         router.push('/dashboard')
@@ -63,26 +62,35 @@ export const useUserStore = defineStore('user', () => {
       })
   }
 
-
   const isLoggedIn = ref(false)
 
-onMounted(() => {
-  onAuthStateChanged(getAuth(), (user) => {
-    if (user) {
-      isLoggedIn.value = true
-    } else {
-      isLoggedIn.value = false
-    }
+  onMounted(() => {
+    onAuthStateChanged(getAuth(), (user) => {
+      if (user) {
+        isLoggedIn.value = true
+      } else {
+        isLoggedIn.value = false
+      }
+    })
   })
-})
 
-// const userStore = useUserStore()
-// const { email, isLoggedIn } = storeToRefs(userStore)
+  // const userStore = useUserStore()
+  // const { email, isLoggedIn } = storeToRefs(userStore)
 
-const handleSingOut = () => {
-  signOut(getAuth()).then(() => {
-    router.push('/')
-  })
-}
-  return { email, password, register, registerGoogle, signIn, name, userAuth, isLoggedIn, handleSingOut}
+  const handleSingOut = () => {
+    signOut(getAuth()).then(() => {
+      router.push('/')
+    })
+  }
+  return {
+    email,
+    password,
+    register,
+    registerGoogle,
+    signIn,
+    name,
+    userAuth,
+    isLoggedIn,
+    handleSingOut
+  }
 })
