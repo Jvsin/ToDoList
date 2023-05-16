@@ -11,8 +11,11 @@ const { email, isLoggedIn } = storeToRefs(userStore)
 </script>
 
 <template>
+  <v-div v-if="isLoggedIn" align="center"> {{ $t('loggedAs') + email }} </v-div>
+
   <v-btn
     v-if="isLoggedIn"
+    block
     :title="email"
     variant="tonal"
     color="red"

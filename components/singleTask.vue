@@ -41,10 +41,12 @@ function emitEditingTask() {
     <v-text-field v-show="edit" v-model="store.newName" :placeholder="$t('placeHolderChange')">
     </v-text-field>
 
-    <v-btn v-show="!edit" @click="emit('enable-edit-task')">{{ $t('editButton') }}</v-btn>
+    <v-btn v-show="!edit" @click="emit('enable-edit-task')">
+      <v-icon color="blue" icon="fa:fas fa-edit"> </v-icon
+    ></v-btn>
 
     <v-btn v-show="edit" @click="emitEditingTask">OK</v-btn>
 
-    <v-btn @click="emit('delete-task')">X</v-btn>
+    <v-btn color="red" @click="emit('delete-task')"> X </v-btn>
   </v-toolbar>
 </template>

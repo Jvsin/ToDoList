@@ -33,52 +33,54 @@ const rules = ref([
 </script>
 
 <template>
-  <main>
-    <h1>{{ $t('siteDescription') }}</h1>
+  <div class="strona">
+    <main>
+      <h1>{{ $t('siteDescription') }}</h1>
 
-    <v-sheet width="300">
-      <v-form @submit.prevent>
-        <v-text-field
-          v-model="newElement"
-          :placeholder="$t('placeHolderAdd')"
-          :rules="rules"
-          width="300"
-          class="mx-auto"
-        ></v-text-field>
+      <v-sheet>
+        <v-form @submit.prevent>
+          <v-text-field
+            v-model="newElement"
+            :placeholder="$t('placeHolderAdd')"
+            :rules="rules"
+            width="300"
+            class="mx-auto"
+          ></v-text-field>
 
-        <v-btn @click="store.addElement()">{{ $t('addButton') }}</v-btn>
+          <v-btn @click="store.addElement()">{{ $t('addButton') }}</v-btn>
 
-        <v-btn @click="store.sortElements()">{{ $t('sortButton') }}</v-btn>
+          <v-btn @click="store.sortElements()">{{ $t('sortButton') }}</v-btn>
 
-        <br />
-      </v-form>
-    </v-sheet>
+          <br />
+        </v-form>
+      </v-sheet>
 
-    <li v-for="element in store.showUnDone" :key="element.id">
-      <div class="element">
-        <TodoItem
-          :id="element.id"
-          :task="element.task"
-          :done="element.done"
-          :edit="element.edit"
-          @delete-task="store.deleteElement(element)"
-          @enable-edit-task="store.enableEdit(element)"
-          @edit-task="store.editElement(element, newName)"
-          @check-task="store.checkElement(element)"
-        ></TodoItem>
-      </div>
-    </li>
+      <li v-for="element in store.showUnDone" :key="element.id">
+        <div class="element">
+          <TodoItem
+            :id="element.id"
+            :task="element.task"
+            :done="element.done"
+            :edit="element.edit"
+            @delete-task="store.deleteElement(element)"
+            @enable-edit-task="store.enableEdit(element)"
+            @edit-task="store.editElement(element, newName)"
+            @check-task="store.checkElement(element)"
+          ></TodoItem>
+        </div>
+      </li>
 
-    <span
-      >{{ $t('taskCounter') }} {{ ` ${list.filter((element) => element.done === false).length}` }}
-    </span>
+      <span
+        >{{ $t('taskCounter') }} {{ ` ${list.filter((element) => element.done === false).length}` }}
+      </span>
 
-    <br />
+      <br />
 
-    <v-btn style="color: red" @click="showDone = !showDone">
-      {{ showDone ? $t('showTasks') : $t('unShowTasks') }}
-    </v-btn>
-  </main>
+      <v-btn style="color: red" @click="showDone = !showDone">
+        {{ showDone ? $t('showTasks') : $t('unShowTasks') }}
+      </v-btn>
+    </main>
+  </div>
 </template>
 
 <style scoped>

@@ -3,10 +3,10 @@
 </script>
 
 <template>
-  <v-container style="margin-left: 250px">
-    <h1>{{ $t('welcome') }}</h1>
+  <v-container>
+    <h1 align="center">{{ $t('welcome') }}</h1>
 
-    <main>{{ $t('homeDesc') }}</main>
+    <main align="center">{{ $t('homeDesc') }}</main>
 
     <main></main>
   </v-container>

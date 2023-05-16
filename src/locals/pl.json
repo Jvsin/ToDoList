@@ -26,5 +26,7 @@
   "signUp": "Zaloguj",
   "IDontHaveAccount": "Nie mam konta",
   "signOut": "wyloguj",
+  "loggedAs": "Zalogowany: ",
+
   "createAccount": "Stwórz konto"
 }
